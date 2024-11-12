@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void update(){
         //Check whether input is empty or not & unit got selected
-        if(!input.getText().toString().equals("") && !unit.getSelectedItem().toString().equals("")){
+        if(!input.getText().toString().isEmpty() && !unit.getSelectedItem().toString().isEmpty()){
             double in  = Double.parseDouble(input.getText().toString());
             switch (unit.getSelectedItem().toString()) {
                 case "m":
@@ -83,12 +83,18 @@ public class MainActivity extends AppCompatActivity {
                     setM(in/1000);
                     break;
                 case "mi":
-                    setM(in*1609.34);
+                    setM(in*1609.344);
                     break;
                 case "ft":
                     setM(in*0.3048);
                     break;
             }
+        }
+        else {
+            m.setText("0");
+            mm.setText("0");
+            mi.setText("0");
+            ft.setText("0");
         }
     }
 
@@ -96,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void setM(double m_in){
         m.setText(String.valueOf(m_in));
         mm.setText(String.valueOf(m_in*1000));
-        mi.setText(String.valueOf(m_in/1609.34));
+        mi.setText(String.valueOf(m_in/1609.344));
         ft.setText(String.valueOf(m_in/0.3048));
     }
 }
